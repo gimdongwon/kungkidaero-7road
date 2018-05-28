@@ -6,7 +6,8 @@ const postAPI = axios.create({
 const templates = {
   login: document.querySelector("#login").content,
   index: document.querySelector("#index").content,
-  register: document.querySelector("#register").content
+  register: document.querySelector("#register").content,
+  item: document.querySelector("#item").content,
 };
 
    function login(token) {
@@ -47,10 +48,14 @@ async function loginPage() {
   }
 
 async function indexPage(){
+    // const res = await postAPI.get('http://localhost:1234/users?_expand=user');
     const frag = document.importNode(templates.index, true);
     const logoutBtnEl = frag.querySelector(".index__logout-btn")
-
-
+    // frag.querySelector(".index__username").textContent = res.data.username;
+    const iphonex = frag.querySelector(".index__item-iphonex-title")
+    iphonex.addEventListener('click', e=>{
+      itemPage();
+    })
        logoutBtnEl.addEventListener('click', e => {
             logout();
             loginPage();
@@ -72,8 +77,25 @@ async function registerPage(){
     login(res.data.token);
     loginPage();
 })
+frag.querySelector(".register__back-btn").addEventListener('click', e=>{
+  loginPage();
+})
 render(frag)
 }
+
+async function itemPage(){
+  const frag = document.importNode(templates.item, true)
+  const buyEl = frag.querySelector('.item__buy-btn')
+  buyEl.addEventListener('click', async e=>{
+
+  })
+  frag.querySelector(".item__back-btn").addEventListener('click', e=>{
+    indexPage();
+  })
+  render(frag)
+}
+
+
 const token = localStorage.getItem('token');
 if (token) {
     login(token);

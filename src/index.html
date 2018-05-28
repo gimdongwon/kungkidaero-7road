@@ -27,8 +27,11 @@
     <template id="index">
       <div class="index">
       <h1 class="index__header">Index</h1>
-      <button class="index__logout-btn">로그아웃</button>
-      </div>
+      <!-- <p class="index__usersname"></p> -->
+      <button class="index__logout-btn">로그아웃</button><br><br>
+      <img class="index__item-iphonex" src="https://cnet4.cbsistatic.com/img/KnuL1WDed3sanatLbE4YDddJGVg=/2017/10/31/312b3b6e-59b7-499a-aea4-9bc5f9721a21/iphone-x-54.jpg" alt="iphone x" height="300px" width="300px">
+        <p class="index__item-iphonex-title"><strong>iphoneX</strong></p>
+    </div>
     </template>
 
     <template id="register">
@@ -38,7 +41,16 @@
           <input name="username" type="text" class="register__username-input">
           <input name="password" type="password" class="register__password-input">
           <button class="register__submit-btn">회원가입</button>
+          <button class="register__back-btn">뒤로가기</button>
         </form>
+      </div>
+    </template>
+
+    <template id="item">
+      <div class="item">
+        <h1 class="item__header">item</h1>
+        <button class="item__buy-btn">주문하기</button>
+        <button class="item__back-btn">뒤로가기</button>
       </div>
     </template>
     <script src="./index.js"></script>
