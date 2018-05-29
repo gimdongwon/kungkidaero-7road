@@ -51,10 +51,29 @@ async function loginPage() {
     });
   }
 
+async function registerPage() {
+  const frag = document.importNode(templates.register, true)
+  const formEl = frag.querySelector('.register__form')
+  formEl.addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = {
+      username: e.target.elements.username.value,
+      password: e.target.elements.password.value,
+    };
+    const res = await postAPI.post('/users/register', payload);
+    login(res.data.token);
+    loginPage();
+  })
+  frag.querySelector(".register__back-btn").addEventListener('click', e => {
+    loginPage();
+  })
+  render(frag)
+}
+
 async function indexPage(){
     // const res = await postAPI.get('http://localhost:1234/users?_expand=user');
     const frag = document.importNode(templates.index, true);
-     const res = await postAPI.get('/indexItem/')
+  const res = await postAPI.get(`/indexItem/`)
       res.data.forEach(indexItem => {
         const fragItem = document.importNode(templates.indexItem, true)
         fragItem.querySelector(".index__item-img").src = indexItem.Imgurl;
@@ -75,41 +94,21 @@ async function indexPage(){
   render(frag);
   }
 
+
 async function itemPage(id){
-  const res = await postAPI.get(`/indexItem/${id}/`)
-  console.log(id)
-  const frag = document.importNode(templates.item, true);
-  res.data.forEach(indexItem=>{
-    frag.querySelector(".item-img").src = indexItem.Imgurl;
-    frag.querySelector(".item-title").textContent = indexItem.title;
-    frag.querySelector(".item-cost").textContent = indexItem.cost;
-  })
-}
-
-
-
-async function registerPage(){
-  const frag = document.importNode(templates.register,true)
-  const formEl = frag.querySelector('.register__form')
-  formEl.addEventListener('submit', async e => {
-    e.preventDefault();
-    const payload = {
-      username: e.target.elements.username.value,
-      password: e.target.elements.password.value,
-    };
-    const res = await postAPI.post('/users/register', payload);
-    login(res.data.token);
-    loginPage();
-})
-frag.querySelector(".register__back-btn").addEventListener('click', e=>{
-  loginPage();
-})
-render(frag)
-}
-
-async function itemPage(){
+  const res = await postAPI.get(`/indexItem/${id}`)
   const frag = document.importNode(templates.item, true)
   const buyEl = frag.querySelector('.item__buy-btn')
+  // res.data.forEach(item=>{
+  //   frag.querySelector(".item-img").src = item.Imgurl;
+  // })
+  console.log(res)
+  for(let i=0; i<res.data.length; i++){
+    frag.querySelector(".item-img").src = res.data[i].Imgurl;
+    frag.querySelector(".item-title").textContent = res.data[i].title;
+    frag.querySelector(".item-cost").textContent = res.data[i].cost;
+    rootEl.appendChild(frag);
+  }
   buyEl.addEventListener('click', async e=>{
     cartPage();
   })
@@ -118,11 +117,13 @@ async function itemPage(){
   })
   render(frag)
 }
+
 async function cartPage(){
   const frag = document.importNode(templates.cart, true)
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{
     alert('결제가 완료되었습니다!')
+    indexPage()
   })
   render(frag)
 }
