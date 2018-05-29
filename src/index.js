@@ -8,6 +8,9 @@ const templates = {
   index: document.querySelector("#index").content,
   register: document.querySelector("#register").content,
   item: document.querySelector("#item").content,
+  indexItem: document.querySelector("#indexItem").content,
+  commentsList: document.querySelector("#comments").content,
+  commentsItem: document.querySelector("#comment-itme").content
 };
 
    function login(token) {
@@ -50,18 +53,30 @@ async function loginPage() {
 async function indexPage(){
     // const res = await postAPI.get('http://localhost:1234/users?_expand=user');
     const frag = document.importNode(templates.index, true);
-    const logoutBtnEl = frag.querySelector(".index__logout-btn")
+     const res = await postAPI.get('/indexItem/')
+      res.data.forEach(indexItem => {
+        const fragItem = document.importNode(templates.indexItem, true)
+        fragItem.querySelector(".index__item-img").src = indexItem.Imgurl;
+        fragItem.querySelector(".index__item-title").textContent = indexItem.title
+        fragItem.querySelector(".index__item-cost").textContent = indexItem.cost
+        console.log(indexItem)
+          const selectEl = fragItem.querySelector(".indexItem")
+        selectEl.addEventListener('click', e => {
+          itemPage();
+        }); 
+        frag.querySelector('.index').appendChild(fragItem);
+      })
+     const logoutBtnEl = frag.querySelector(".index__logout-btn")
     // frag.querySelector(".index__username").textContent = res.data.username;
-    const iphonex = frag.querySelector(".index__item-iphonex-title")
-    iphonex.addEventListener('click', e=>{
-      itemPage();
-    })
        logoutBtnEl.addEventListener('click', e => {
             logout();
             loginPage();
           });
   render(frag);
   }
+
+
+
 
 
 async function registerPage(){

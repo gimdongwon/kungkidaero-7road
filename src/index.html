@@ -29,10 +29,17 @@
       <h1 class="index__header">Index</h1>
       <!-- <p class="index__usersname"></p> -->
       <button class="index__logout-btn">로그아웃</button><br><br>
-      <img class="index__item-iphonex" src="https://cnet4.cbsistatic.com/img/KnuL1WDed3sanatLbE4YDddJGVg=/2017/10/31/312b3b6e-59b7-499a-aea4-9bc5f9721a21/iphone-x-54.jpg" alt="iphone x" height="300px" width="300px">
-        <p class="index__item-iphonex-title"><strong>iphoneX</strong></p>
     </div>
     </template>
+
+    <template id="indexItem">
+      <div class="indexItem">
+        <img class="index__item-img" height="300px" width="300px">
+        <p class="index__item-title"></p>
+        <p class="index__item-cost"></p>
+      </div>
+    </template>
+
 
     <template id="register">
       <div class="register">
@@ -49,10 +56,31 @@
     <template id="item">
       <div class="item">
         <h1 class="item__header">item</h1>
+        <img class="item-img" height="300px" width="300px">
+        <p class="item-title"></p>
+        <p class="item-cost"></p>
+        <p class="item-content"></p> 
         <button class="item__buy-btn">주문하기</button>
         <button class="item__back-btn">뒤로가기</button>
       </div>
     </template>
+
+    <template id="comments">
+  <div class="comments__list">
+  </div>
+  <form class="comments__form">
+    <input name="body" type="text" class="comments__body-input">
+    <button class="comments__submit-btn">전송</button>
+  </form>
+</template>
+
+    <template id="comment-item">
+  <div class="comment-item">
+    <p class="comment-item__body"></p>
+    <button class="comment-item__remove-btn">삭제</button>
+  </div>
+</template>
+
     <script src="./index.js"></script>
 </body>
 
