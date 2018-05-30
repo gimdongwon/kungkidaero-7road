@@ -58,26 +58,32 @@
 
     <template id="item">
       <div class="item">
-        <h1 class="item__header">item</h1>
+</div>
+</template>
+
+    <template id="item-item">
+      <h1 class="item__header">item</h1>
+      <form class="item__form">
         <img class="item-img" height="300px" width="300px">
         <p class="item-title"></p>
         <p class="item-cost"></p>
-        <p class="item-content"></p> 
+        <p class="item-content"></p>
         <div class="select-color">
           <select class="select-color">
-            <option>골드</option>
-            <option>스페이스그레이</option>
-            <option>실버</option>
-            <option>로즈핑크</option>
+            <option value="Gold">골드</option>
+            <option value="SpaceGray">스페이스그레이</option>
+            <option value="Silver">실버</option>
+            <option value="RosePink">로즈핑크</option>
           </select>
         </div>
         <div class="select-mount">
-        <input id="number" type="number">
+          <input id="number" type="number" name="amount">
         </div>
         <button class="item__buy-btn">주문하기</button>
         <button class="item__back-btn">뒤로가기</button>
-      </div>
-    </template>
+      </form>
+
+     </template>
 
     <template id="comments">
   <div class="comments__list">
@@ -97,17 +103,19 @@
 
     <template id="cart">
   <div class="cart">
-<h1 class="cart__header">장바구니</h1>
-      <img class="cart__item-img" height="300px" width="300px">
-      <p class="cart__item-title"></p>
-      <p class="cart__item-cost"></p>
-      <p class="cart__item-color"></p>
-      <p class="cart__item-mount"></p>
-      <p class="cart__item-sum"></p>
       <button class="pay">결제하기</button>
   </div>
 </template>
 
+    <template id="cart-item">
+<h1 class="cart__header">장바구니</h1>
+<img class="cart__item-img" height="300px" width="300px">
+<p class="cart__item-title"></p>
+<p class="cart__item-cost"></p>
+<p class="cart__item-color"></p>
+<p class="cart__item-mount"></p>
+<p class="cart__item-sum"></p>
+  </template>
 
     <script src="./index.js"></script>
 </body>

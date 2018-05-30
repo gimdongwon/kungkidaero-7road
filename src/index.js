@@ -12,6 +12,8 @@ const templates = {
   commentsList: document.querySelector("#comments").content,
   commentsItem: document.querySelector("#comment-item").content,
   cart: document.querySelector("#cart").content,
+  itemItem: document.querySelector("#item-item").content,
+  cartItem: document.querySelector("#cart-item").content,
 };
 
    function login(token) {
@@ -73,9 +75,10 @@ async function registerPage() {
 async function indexPage(){
     // const res = await postAPI.get('http://localhost:1234/users?_expand=user');
     const frag = document.importNode(templates.index, true);
-  const res = await postAPI.get(`/indexItem/`)
+  const res = await postAPI.get(`/indexItems/`)
       res.data.forEach(indexItem => {
         const fragItem = document.importNode(templates.indexItem, true)
+
         fragItem.querySelector(".index__item-img").src = indexItem.Imgurl;
         fragItem.querySelector(".index__item-title").textContent = indexItem.title
         fragItem.querySelector(".index__item-cost").textContent = indexItem.cost
@@ -96,31 +99,42 @@ async function indexPage(){
 
 
 async function itemPage(id){
-  const res = await postAPI.get(`/indexItem/${id}`)
-  const frag = document.importNode(templates.item, true)
+  const res = await postAPI.get(`/indexItems/${id}`)
+  const frag = document.importNode(templates.itemItem, true)
   const buyEl = frag.querySelector('.item__buy-btn')
-
-    frag.querySelector(".item-img").src = res.data.Imgurl;
-    frag.querySelector(".item-title").textContent = res.data.title
-    frag.querySelector(".item-cost").textContent = res.data.cost
   
-  // for(let i=0; i<res.data.length; i++){
-  //   frag.querySelector(".item-img").src = res.data[i].Imgurl;
-  //   frag.querySelector(".item-title").textContent = res.data[i].title;
-  //   frag.querySelector(".item-cost").textContent = res.data[i].cost;
-  //   rootEl.appendChild(frag);
-  // }
-  buyEl.addEventListener('click', async e=>{
-    cartPage();
-  })
-  frag.querySelector(".item__back-btn").addEventListener('click', e=>{
-    indexPage();
-  })
+    
+    frag.querySelector(".item-img").src = res.data.Imgurl;
+    frag.querySelector(".item-title").textContent = res.data.title;
+    frag.querySelector(".item-cost").textContent = res.data.cost;
+  
+    
+  const formEl = frag.querySelector('.item__form')
+  formEl.addEventListener('submit', async e=>{
+  e.preventDefault();
+  alert("장바구니에 추가되었습니다!")
+  const payload ={
+    amount: e.target.elements.amount.value,
+  }
+  const req = await postAPI.post(`/indexItems/${id}/carts`, payload)
+  });  
+    buyEl.addEventListener('click', async e=>{
+      cartPage(id);
+     })
+    frag.querySelector(".item__back-btn").addEventListener('click', e=>{
+      indexPage();
+    })
   render(frag)
 }
 
-async function cartPage(){
+async function cartPage(id){
   const frag = document.importNode(templates.cart, true)
+  const res = await postAPI.get(`/indexItems?_expand=user`)
+    res.data.forEach(cartItem=>{
+      const fragment = document.importNode(templates.cartItem, true);
+      fragment.querySelector(".cart__item-img").src = cartItem.Imgurl
+      fragment.querySelector(".")
+    })
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{
     alert('결제가 완료되었습니다!')
