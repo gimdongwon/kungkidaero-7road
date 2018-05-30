@@ -99,16 +99,17 @@ async function itemPage(id){
   const res = await postAPI.get(`/indexItem/${id}`)
   const frag = document.importNode(templates.item, true)
   const buyEl = frag.querySelector('.item__buy-btn')
-  // res.data.forEach(item=>{
-  //   frag.querySelector(".item-img").src = item.Imgurl;
-  // })
-  console.log(res)
-  for(let i=0; i<res.data.length; i++){
-    frag.querySelector(".item-img").src = res.data[i].Imgurl;
-    frag.querySelector(".item-title").textContent = res.data[i].title;
-    frag.querySelector(".item-cost").textContent = res.data[i].cost;
-    rootEl.appendChild(frag);
-  }
+
+    frag.querySelector(".item-img").src = res.data.Imgurl;
+    frag.querySelector(".item-title").textContent = res.data.title
+    frag.querySelector(".item-cost").textContent = res.data.cost
+  
+  // for(let i=0; i<res.data.length; i++){
+  //   frag.querySelector(".item-img").src = res.data[i].Imgurl;
+  //   frag.querySelector(".item-title").textContent = res.data[i].title;
+  //   frag.querySelector(".item-cost").textContent = res.data[i].cost;
+  //   rootEl.appendChild(frag);
+  // }
   buyEl.addEventListener('click', async e=>{
     cartPage();
   })
@@ -134,5 +135,6 @@ if (token) {
     login(token);
      indexPage();
    } else {
+
     loginPage();
   }
