@@ -130,7 +130,11 @@ async function cartPage(id){
       fragment.querySelector(".cart__item-img").src = cartItem.indexItem.Imgurl;
       fragment.querySelector(".cart__item-title").textContent = cartItem.indexItem.title;
       fragment.querySelector(".cart__item-color").textContent = cartItem.color;
-    })
+      fragment.querySelector(".cart__item-amount").textContent = cartItem.amount;
+      fragment.querySelector(".cart__item-cost").textContent = cartItem.indexItem.cost;
+      frag.querySelector(".cart").appendChild(fragment)
+    });
+    
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{
     alert('결제가 완료되었습니다!')
