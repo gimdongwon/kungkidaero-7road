@@ -101,26 +101,21 @@ async function indexPage(){
 async function itemPage(id){
   const res = await postAPI.get(`/indexItems/${id}`)
   const frag = document.importNode(templates.itemItem, true)
-  const buyEl = frag.querySelector('.item__buy-btn')
-  
-    
+  const buyEl = frag.querySelector('.item__buy-btn');
+  const formEl = frag.querySelector('.item__form');
     frag.querySelector(".item-img").src = res.data.Imgurl;
     frag.querySelector(".item-title").textContent = res.data.title;
     frag.querySelector(".item-cost").textContent = res.data.cost;
   
-    
-  const formEl = frag.querySelector('.item__form')
   formEl.addEventListener('submit', async e=>{
   e.preventDefault();
-  alert("장바구니에 추가되었습니다!")
   const payload ={
     amount: e.target.elements.amount.value,
+    color: e.target.elements.color.value
   }
-  const req = await postAPI.post(`/indexItems/${id}/carts`, payload)
+    const req = await postAPI.post(`indexItems/${id}/carts`, payload)
+    cartPage(id);
   });  
-    buyEl.addEventListener('click', async e=>{
-      cartPage(id);
-     })
     frag.querySelector(".item__back-btn").addEventListener('click', e=>{
       indexPage();
     })
@@ -129,11 +124,12 @@ async function itemPage(id){
 
 async function cartPage(id){
   const frag = document.importNode(templates.cart, true)
-  const res = await postAPI.get(`/indexItems?_expand=user`)
+  const res = await postAPI.get(`/carts?_expand=indexItem`)
     res.data.forEach(cartItem=>{
       const fragment = document.importNode(templates.cartItem, true);
-      fragment.querySelector(".cart__item-img").src = cartItem.Imgurl
-      fragment.querySelector(".")
+      fragment.querySelector(".cart__item-img").src = cartItem.indexItem.Imgurl;
+      fragment.querySelector(".cart__item-title").textContent = cartItem.indexItem.title;
+      fragment.querySelector(".cart__item-color").textContent = cartItem.color;
     })
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{

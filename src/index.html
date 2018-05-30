@@ -58,7 +58,7 @@
 
     <template id="item">
       <div class="item">
-</div>
+      </div>
 </template>
 
     <template id="item-item">
@@ -69,7 +69,7 @@
         <p class="item-cost"></p>
         <p class="item-content"></p>
         <div class="select-color">
-          <select class="select-color">
+          <select class="select-color" name="color">
             <option value="Gold">골드</option>
             <option value="SpaceGray">스페이스그레이</option>
             <option value="Silver">실버</option>
@@ -79,15 +79,13 @@
         <div class="select-mount">
           <input id="number" type="number" name="amount">
         </div>
-        <button class="item__buy-btn">주문하기</button>
+          <button class="item__buy-btn">주문하기</button>
+        </form>
         <button class="item__back-btn">뒤로가기</button>
-      </form>
-
      </template>
 
     <template id="comments">
-  <div class="comments__list">
-  </div>
+  <div class="comments__list"></div>
   <form class="comments__form">
     <input name="body" type="text" class="comments__body-input">
     <button class="comments__submit-btn">전송</button>
@@ -95,7 +93,7 @@
 </template>
 
     <template id="comment-item">
-  <div class="comment-item">
+    <div class="comment-item">
     <p class="comment-item__body"></p>
     <button class="comment-item__remove-btn">삭제</button>
   </div>
