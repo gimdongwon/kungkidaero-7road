@@ -119,8 +119,40 @@ async function itemPage(id){
     frag.querySelector(".item__back-btn").addEventListener('click', e=>{
       indexPage();
     })
+
+    if (localStorage.getItem('token')) {
+    const commentsFragment = document.importNode(templates.commentsList, true);
+    const commentsRes = await postAPI.get(`/indexItem/${id}/comments`);
+    commentsRes.data.forEach(comment => {
+      const itemFragment = document.importNode(templates.commentsItem, true);
+      const bodyEl = itemFragment.querySelector('.comment-item__body');
+      const removeButtonEl = itemFragment.querySelector('.comment-item__remove-btn');
+      bodyEl.textContent = comment.body;
+      // itemFragment.querySelector('.comment-item__body').textContent = comment.body;
+      commentsFragment.querySelector('.comments__list').appendChild(itemFragment);
+      removeButtonEl.addEventListener('click', async e => {
+        // p 태그와 button 태그 삭제
+        bodyEl.remove();
+        removeButtonEl.remove();
+        // delete 요청 보내기
+        const res = await postAPI.delete(`/comments/${comment.id}`)
+        // 만약 요청이 실패했을 경우 원상 복구 (생략)
+      })
+    })
+      const formEl = commentsFragment.querySelector('.comments__form');
+        formEl.addEventListener('submit', async e => {
+          e.preventDefault();
+          const payload = {
+           body: e.target.elements.body.value
+              };
+          const res = await postAPI.post(`/indexItem/${id}/comments`, payload);
+            itemPage(id);
+          });
+    frag.appendChild(commentsFragment);
+  }
   render(frag)
 }
+
 
 async function cartPage(id){
   const frag = document.importNode(templates.cart, true)
