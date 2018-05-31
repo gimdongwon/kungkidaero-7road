@@ -1,6 +1,6 @@
 import axios from 'axios'
 const postAPI = axios.create({
-  baseURL: 'http://localhost:3000'  //process.env.API_URL
+  baseURL: process.env.API_URL //process.env.API_URL
 });
 
 const templates = {
@@ -44,9 +44,10 @@ async function loginPage() {
           password: e.target.elements.password.value,
           };
       const res = await postAPI.post('/users/login', payload);
-      login(res.data.token);
+      login(res.data.token)
+      alert("로그인에 성공하였습니다 환영합니다!")
       indexPage();
-    })
+  })
   render(frag)
   document.querySelector(".register__go-btn").addEventListener('click', async e => {
       registerPage();
@@ -94,6 +95,10 @@ async function indexPage(){
             logout();
             loginPage();
           });
+      const cartBtn = frag.querySelector(".index__cart-btn")
+      cartBtn.addEventListener('click', async e=>{
+        cartPage()
+      })
   render(frag);
   }
 
@@ -113,7 +118,7 @@ async function itemPage(id){
     amount: e.target.elements.amount.value,
     color: e.target.elements.color.value
   }
-    const req = await postAPI.post(`indexItems/${id}/carts`, payload)
+    const res = await postAPI.post(`indexItems/${id}/carts`, payload)
     cartPage(id);
   });  
     frag.querySelector(".item__back-btn").addEventListener('click', e=>{
@@ -133,7 +138,7 @@ async function itemPage(id){
       removeButtonEl.addEventListener('click', async e => {
         // p 태그와 button 태그 삭제
         bodyEl.remove();
-        removeButtonEl.remove();
+        removeButtonEl.remove();  
         // delete 요청 보내기
         const res = await postAPI.delete(`/comments/${comment.id}`)
         // 만약 요청이 실패했을 경우 원상 복구 (생략)
@@ -156,15 +161,43 @@ async function itemPage(id){
 
 async function cartPage(id){
   const frag = document.importNode(templates.cart, true)
+  const pEl = frag.querySelector(".cart-sum")
+  const backEl = frag.querySelector(".cart-back")
+  let sum = [];
+  let sumCost;
+  
   const res = await postAPI.get(`/carts?_expand=indexItem`)
+  backEl.addEventListener("click", e => {
+    indexPage();
+  })
     res.data.forEach(cartItem=>{
       const fragment = document.importNode(templates.cartItem, true);
+      const bodyEl = fragment.querySelector(".cart-item");
+      const removeButtonEl = fragment.querySelector(".cart__remove-btn");
+      // console.log(bodyEl)
       fragment.querySelector(".cart__item-img").src = cartItem.indexItem.Imgurl;
-      fragment.querySelector(".cart__item-title").textContent = cartItem.indexItem.title;
-      fragment.querySelector(".cart__item-color").textContent = cartItem.color;
-      fragment.querySelector(".cart__item-amount").textContent = cartItem.amount;
-      fragment.querySelector(".cart__item-cost").textContent = cartItem.indexItem.cost;
-      frag.querySelector(".cart").appendChild(fragment)
+      fragment.querySelector(".cart__item-title").textContent = "상품 이름 : " + cartItem.indexItem.title;
+      fragment.querySelector(".cart__item-color").textContent = "색상 : " + cartItem.color;
+      fragment.querySelector(".cart__item-amount").textContent =`수량 : `+ cartItem.amount;
+      fragment.querySelector(".cart__item-cost").textContent = `가격 : ` + cartItem.indexItem.cost;
+      fragment.querySelector(".cart__item-userId").textContent = `주문 아이디:` + cartItem.userId;
+      sumCost = cartItem.indexItem.cost * cartItem.amount;
+      sum.push(sumCost);
+      sumCost = 0;
+      for (let i = 0; i < sum.length; i++) {
+        sumCost += sum[i]
+      }
+      pEl.textContent = `총 결제 금액 : ${sumCost}원`;
+      
+      frag.querySelector(".cart").appendChild(fragment);
+      
+      
+      removeButtonEl.addEventListener("click", async e => {
+        // bodyEl.remove();
+        // removeButtonEl.remove();
+        const res = await postAPI.delete(`/carts/${id}`)
+        cartPage(id)
+        });
     });
     
   const payBtn = frag.querySelector(".pay")
@@ -181,6 +214,5 @@ if (token) {
     login(token);
      indexPage();
    } else {
-
     loginPage();
   }

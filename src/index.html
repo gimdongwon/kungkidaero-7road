@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>중간 프로젝트 템플릿</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
     <link rel="stylesheet" href="./index.scss">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css"> -->
 
@@ -19,11 +19,34 @@
       <div class="login">
         <h1 class="login__header">로그인을 해주세요</h1>
         <form class="login__form">
-          <input name="username" type="text" class="login__username-input">
-          <input name="password" type="password" class="login__password-input">
-          <button class="login__submit-btn">로그인</button>
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input name="username" class="input login__username-input" type="text" placeholder="ID">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input name="password" class="input login__password-input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <button class="button is-success button login__submit-btn">
+              Login
+            </button>
+          </p>
+        </div>
         </form>
-        <button class="register__go-btn">회원가입</button>
+        <button class="button register__go-btn">회원가입</button>
       </div>
     </template>
 
@@ -31,6 +54,7 @@
       <div class="index">
       <h1 class="index__header">Index</h1>
       <!-- <p class="index__usersname"></p> -->
+      <button class="index__cart-btn">장바구니</button>
       <button class="index__logout-btn">로그아웃</button><br><br>
     </div>
     </template>
@@ -100,19 +124,24 @@
 </template>
 
     <template id="cart">
+<h1 class="cart__header">장바구니</h1>
   <div class="cart">
-      <button class="pay">결제하기</button>
+    <p class="cart-sum"></p>
+    <button class="pay">결제하기</button>
+    <button class="cart-back">뒤로가기</button>
   </div>
 </template>
 
     <template id="cart-item">
-<h1 class="cart__header">장바구니</h1>
-<img class="cart__item-img" height="300px" width="300px">
-<p class="cart__item-title"></p>
-<p class="cart__item-cost"></p>
-<p class="cart__item-color"></p>
-<p class="cart__item-amount"></p>
-<p class="cart__item-sum"></p>
+      <div class="cart-item">
+        <img class="cart__item-img" height="300px" width="300px">
+        <p class="cart__item-title"></p>
+        <p class="cart__item-cost"></p>
+        <p class="cart__item-color"></p>
+        <p class="cart__item-amount"></p>
+        <p class="cart__item-userId"></p>
+        <button class="cart__remove-btn">삭제하기</button>
+      </div>
   </template>
 
     <script src="./index.js"></script>
