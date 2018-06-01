@@ -1,6 +1,6 @@
 import axios from 'axios'
 const postAPI = axios.create({
-  baseURL: process.env.API_URL //process.env.API_URL
+  baseURL: "https://closed-tortellini.glitch.me/" //process.env.API_URL
 });
 
 const templates = {
