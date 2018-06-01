@@ -59,4 +59,30 @@ h1 {
 .indexItem {
     width: 300px;
     float: left;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+
+.comments__body-input {
+    width: 400px;
+    // margin: 200px auto;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.comment-item__remove-btn {
+    margin: 5px;
+}
+
+.register__submit-btn {
+    text-align: center;
+    width: 100%;
+}
+
+.register {
+    margin: 100px auto;
+    width: 400px;
+    padding: 20px;
+    border-radius: 15px;
+    // margin
 }

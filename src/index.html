@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <h1 class="title is-1">경기대로7길-27</h1>
+        <h1 class="title is-1">SPA_shoppingMall</h1>
         <div class="root"></div>
         <template id="login">
       <div class="login">
@@ -31,7 +31,7 @@
               <i class="fas fa-check"></i>
             </span>
           </p>
-        </div>
+        </div>j
         <div class="field">
           <p class="control has-icons-left">
             <input name="password" class="input login__password-input" type="password" placeholder="Password">
@@ -73,7 +73,7 @@
 
         <template id="register">
       <div class="register">
-        <h1 class="register__header">register</h1>
+        <h1 class="register__header title is-1">회원가입</h1>
         <form class="register__form">
             <div class="field">
               <p class="control has-icons-left has-icons-right">
@@ -96,7 +96,7 @@
             </div>
             <div class="field">
               <p class="control">
-                <button class="button is-success button register__submit-btn">
+                <button width="100%" class="button is-success button register__submit-btn">
                    회원가입
                 </button>
               </p>
@@ -113,13 +113,13 @@
 </template>
 
         <template id="item-item">
-      <h1 class="item__header">item</h1>
+      <h1 class="item__header title is-2">item</h1>
       <form class="item__form">
-        <img class="item-img" height="300px" width="300px">
+        <img class="item-img" width="500px"height="200px">
         <p class="item-title"></p>
         <p class="item-cost"></p>
         <p class="item-content"></p>
-        <div class="select-color">
+        <div class="select-color select is-rounded">
           <select class="select-color" name="color">
             <option value="Gold">골드</option>
             <option value="SpaceGray">스페이스그레이</option>
@@ -128,7 +128,7 @@
           </select>
         </div>
         <div class="select-mount">
-          <input id="number" type="number" name="amount">
+          <input id="number" min="0" type="number" name="amount" class="select">
         </div>
           <button class="button item__buy-btn">주문하기</button>
         </form>
@@ -138,7 +138,7 @@
         <template id="comments">
   <div class="comments__list"></div>
   <form class="comments__form">
-    <input name="body" type="text" class="comments__body-input">
+    <input name="body" type="text" class="comments__body-input input" width="30%">
     <button class="comments__submit-btn button">전송</button>
   </form>
 </template>
@@ -167,6 +167,7 @@
         <p class="cart__item-color"></p>
         <p class="cart__item-amount"></p>
         <p class="cart__item-userId"></p>
+        
         <button class="cart__remove-btn">삭제하기</button>
       </div>
   </template>

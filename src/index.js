@@ -166,7 +166,7 @@ async function cartPage(){
   const backEl = frag.querySelector(".cart-back")
   let sum = [];
   let sumCost;
-  if (localStorage.getItem('token')) {
+  // if (localStorage.getItem('token')) {
   const res = await postAPI.get(`/carts?_expand=indexItem`)
   backEl.addEventListener("click", e => {
     indexPage();
@@ -196,15 +196,15 @@ async function cartPage(){
       
       
       removeButtonEl.addEventListener("click", async e => {
-        // bodyEl.remove();
-        // removeButtonEl.remove();
+        bodyEl.remove();
+        removeButtonEl.remove();
         const res = await postAPI.delete(`/carts/${cartItem.id}`)
         cartPage()
         
       });
     
     });
-  }
+  
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{
     alert('결제가 완료되었습니다!')
