@@ -81,8 +81,8 @@ async function indexPage(){
         const fragItem = document.importNode(templates.indexItem, true)
 
         fragItem.querySelector(".index__item-img").src = indexItem.Imgurl;
-        fragItem.querySelector(".index__item-title").textContent = indexItem.title
-        fragItem.querySelector(".index__item-cost").textContent = indexItem.cost
+        fragItem.querySelector(".index__item-title").textContent = `상품이름 : ` + indexItem.title
+        fragItem.querySelector(".index__item-cost").textContent = `상품 가격 : ` + indexItem.cost
           const selectEl = fragItem.querySelector(".indexItem")
         selectEl.addEventListener('click', e => {
           itemPage(indexItem.id);
@@ -119,7 +119,7 @@ async function itemPage(id){
     color: e.target.elements.color.value
   }
     const res = await postAPI.post(`indexItems/${id}/carts`, payload)
-    cartPage(id);
+    cartPage();
   });  
     frag.querySelector(".item__back-btn").addEventListener('click', e=>{
       indexPage();
@@ -159,18 +159,21 @@ async function itemPage(id){
 }
 
 
-async function cartPage(id){
+async function cartPage(){
+  
   const frag = document.importNode(templates.cart, true)
   const pEl = frag.querySelector(".cart-sum")
   const backEl = frag.querySelector(".cart-back")
   let sum = [];
   let sumCost;
-  
+  if (localStorage.getItem('token')) {
   const res = await postAPI.get(`/carts?_expand=indexItem`)
   backEl.addEventListener("click", e => {
     indexPage();
-  })
+  }); 
+  
     res.data.forEach(cartItem=>{
+      
       const fragment = document.importNode(templates.cartItem, true);
       const bodyEl = fragment.querySelector(".cart-item");
       const removeButtonEl = fragment.querySelector(".cart__remove-btn");
@@ -195,11 +198,13 @@ async function cartPage(id){
       removeButtonEl.addEventListener("click", async e => {
         // bodyEl.remove();
         // removeButtonEl.remove();
-        const res = await postAPI.delete(`/carts/${id}`)
-        cartPage(id)
-        });
-    });
+        const res = await postAPI.delete(`/carts/${cartItem.id}`)
+        cartPage()
+        
+      });
     
+    });
+  }
   const payBtn = frag.querySelector(".pay")
   payBtn.addEventListener('click', async e=>{
     alert('결제가 완료되었습니다!')

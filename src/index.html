@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>중간 프로젝트 템플릿</title>
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
     <link rel="stylesheet" href="./index.scss">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css"> -->
+
 
 </head>
 
 <body>
-    <h1>경기대로7길-27</h1>
-    <div class="root"></div>
-    <template id="login">
+    <div class="container">
+        <h1 class="title is-1">경기대로7길-27</h1>
+        <div class="root"></div>
+        <template id="login">
       <div class="login">
-        <h1 class="login__header">로그인을 해주세요</h1>
+        <!-- <h1 class="login__header title is-3">로그인을 해주세요</h1> -->
         <form class="login__form">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
@@ -39,53 +41,78 @@
           </p>
         </div>
         <div class="field">
-          <p class="control">
+          <p class="control login-btn">
             <button class="button is-success button login__submit-btn">
               Login
             </button>
           </p>
         </div>
         </form>
-        <button class="button register__go-btn">회원가입</button>
+        <p class="p register__go-btn">회원가입하기</p>
       </div>
     </template>
 
-    <template id="index">
+        <template id="index">
       <div class="index">
-      <h1 class="index__header">Index</h1>
+      <h1 class="index__header title is-1">Index</h1>
       <!-- <p class="index__usersname"></p> -->
-      <button class="index__cart-btn">장바구니</button>
-      <button class="index__logout-btn">로그아웃</button><br><br>
+      <button class="button index__cart-btn is-4">장바구니</button>
+      <button class="button index__logout-btn">로그아웃</button><br><br>
     </div>
     </template>
 
-    <template id="indexItem">
-      <div class="indexItem">
-        <img class="index__item-img" height="300px" width="300px">
+
+        <template id="indexItem">
+          <div class="indexItem">
+        <img class="index__item-img" width="300px">
         <p class="index__item-title"></p>
         <p class="index__item-cost"></p>
-      </div>
+        </div>
     </template>
 
 
-    <template id="register">
+        <template id="register">
       <div class="register">
         <h1 class="register__header">register</h1>
         <form class="register__form">
-          <input name="username" type="text" class="register__username-input">
-          <input name="password" type="password" class="register__password-input">
-          <button class="register__submit-btn">회원가입</button>
-          <button class="register__back-btn">뒤로가기</button>
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                <input name="username" class="input register__username-input" type="text" placeholder="ID">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input name="password" class="input register__password-input" type="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button class="button is-success button register__submit-btn">
+                   회원가입
+                </button>
+              </p>
+            </div>
+          
+          <p class="register__back-btn">뒤로가기</p>
         </form>
       </div>
     </template>
 
-    <template id="item">
+        <template id="item">
       <div class="item">
       </div>
 </template>
 
-    <template id="item-item">
+        <template id="item-item">
       <h1 class="item__header">item</h1>
       <form class="item__form">
         <img class="item-img" height="300px" width="300px">
@@ -103,36 +130,36 @@
         <div class="select-mount">
           <input id="number" type="number" name="amount">
         </div>
-          <button class="item__buy-btn">주문하기</button>
+          <button class="button item__buy-btn">주문하기</button>
         </form>
-        <button class="item__back-btn">뒤로가기</button>
+        <button class="button item__back-btn">뒤로가기</button>
      </template>
 
-    <template id="comments">
+        <template id="comments">
   <div class="comments__list"></div>
   <form class="comments__form">
     <input name="body" type="text" class="comments__body-input">
-    <button class="comments__submit-btn">전송</button>
+    <button class="comments__submit-btn button">전송</button>
   </form>
 </template>
 
-    <template id="comment-item">
+        <template id="comment-item">
     <div class="comment-item">
     <p class="comment-item__body"></p>
-    <button class="comment-item__remove-btn">삭제</button>
+    <button class="button comment-item__remove-btn">삭제</button>
   </div>
 </template>
 
-    <template id="cart">
+        <template id="cart">
 <h1 class="cart__header">장바구니</h1>
   <div class="cart">
     <p class="cart-sum"></p>
-    <button class="pay">결제하기</button>
-    <button class="cart-back">뒤로가기</button>
+    <button class="pay button">결제하기</button>
+    <button class="cart-back button">뒤로가기</button>
   </div>
 </template>
 
-    <template id="cart-item">
+        <template id="cart-item">
       <div class="cart-item">
         <img class="cart__item-img" height="300px" width="300px">
         <p class="cart__item-title"></p>
@@ -143,7 +170,7 @@
         <button class="cart__remove-btn">삭제하기</button>
       </div>
   </template>
-
+    </div>
     <script src="./index.js"></script>
 </body>
 
